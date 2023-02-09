@@ -1,15 +1,5 @@
 @extends('products.layout')
          
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     <div class="create">
     @section('content')
     <div class="row mb-3">
@@ -30,13 +20,23 @@
             <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
                 <div class="form-group">
                     <strong>Name:</strong>
-                    <input type="text" name="name" value="{{ $product->name }}" class="form-control" placeholder="Name">
+                    <input type="text" name="name" value="{{ $product->name ?? old('name') }}" class="form-control" placeholder="Name">
+                    @error('name')
+                    <span class="text-danger" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                    @enderror 
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
                 <div class="form-group">
                     <strong>Detail:</strong>
-                    <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail">{{ $product->detail }}</textarea>
+                    <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail">{{ $product->detail ?? old('name')}}</textarea>
+                    @error('detail')
+                    <span class="text-danger" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                    @enderror
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
