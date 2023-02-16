@@ -29,7 +29,9 @@ class Post extends Model
     public function scopeSearch($query)
     {
         return $query->when(request()->has('search') ?? false, function ($query, $search) {
-            $query->where('title', 'LIKE', '%' . request()->input('search') . '%');
+            $query->where('title', 'LIKE', '%' . request()->input('search') . '%')
+            ->orWhere('body','LIKE', '%' . request()->input('search') . '%');
+           /*  ->orWhere('name','LIKE', '%' . request()->input('search') . '%');  */
         });
     }
 }
